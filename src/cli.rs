@@ -1,4 +1,5 @@
 use clap::{Parser, Subcommand};
+use clap_complete::Shell;
 
 /// A simple CLI for managing tasks
 #[derive(Parser)]
@@ -65,5 +66,12 @@ pub enum Commands {
         /// Set the storage path for commands (default: ~/.zerp)
         #[arg(short, long)]
         storage: Option<String>,
+    },
+
+    /// Generate shell completions
+    Completion {
+        /// Shell to generate completions for
+        #[arg(value_enum)]
+        shell: Shell,
     },
 }

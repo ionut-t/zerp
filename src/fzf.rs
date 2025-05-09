@@ -106,7 +106,7 @@ pub fn select_task_with_preview(storage_dir: &Path, header: &str) -> Result<Opti
         let entry = entry.context("Failed to read directory entry")?;
         let path = entry.path();
 
-        if path.is_file() && path.extension().map_or(false, |ext| ext == "txt") {
+        if path.is_file() && path.extension().map_or(false, |ext| ext == "sh") {
             if let Some(name) = path.file_stem() {
                 tasks.push(name.to_string_lossy().to_string());
             }
@@ -137,13 +137,13 @@ pub fn select_task_with_preview(storage_dir: &Path, header: &str) -> Result<Opti
 
     let preview_cmd = if bat_available {
         format!(
-            "bat --color=always --style=numbers {}/{{}}.txt",
+            "bat --color=always --style=numbers {}/{{}}.sh",
             storage_dir.display()
         )
     } else if cfg!(windows) {
-        format!("type {}/{{}}.txt", storage_dir.display())
+        format!("type {}/{{}}.sh", storage_dir.display())
     } else {
-        format!("cat {}/{{}}.txt", storage_dir.display())
+        format!("cat {}/{{}}.sh", storage_dir.display())
     };
 
     select_with_fzf(&tasks, header, Some(&preview_cmd))

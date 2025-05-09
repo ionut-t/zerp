@@ -76,12 +76,8 @@ impl State {
                     anyhow::bail!("Command not found");
                 }
 
-                let command = std::fs::read_to_string(&file_path)
-                    .context("Failed to read command file".red())?;
-
                 let status = std::process::Command::new("sh")
-                    .arg("-c")
-                    .arg(command)
+                    .arg(&file_path)
                     .status()
                     .context("Failed to execute command".red())?;
 
@@ -235,7 +231,7 @@ impl State {
     }
 
     fn get_file_path(&self, name: String) -> PathBuf {
-        self.storage.join(format!("{}.txt", name))
+        self.storage.join(format!("{}.sh", name))
     }
 
     fn load_tasks(&mut self) -> anyhow::Result<()> {
@@ -246,7 +242,7 @@ impl State {
             let entry = entry.context("Failed to read entry".red())?;
             let path = entry.path();
 
-            if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("txt") {
+            if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("sh") {
                 let name = path
                     .file_stem()
                     .and_then(|s| s.to_str())

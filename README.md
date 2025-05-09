@@ -56,7 +56,7 @@ zerp config # opens the configuration file
 
 Zerp uses the following configuration:
 
-- **Storage Directory**: Commands are stored as `.txt` files in the specified directory.
+- **Storage Directory**: Commands are stored as `.sh` files in the specified directory.
 - **Editor**: The editor to use for creating and editing commands (e.g., `vim`, `nano`, `nvim`, `hx`).
 
 ## License

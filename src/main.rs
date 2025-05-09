@@ -1,4 +1,5 @@
 mod cli;
+mod completion;
 mod config;
 mod fzf;
 mod state;
@@ -60,6 +61,11 @@ fn main() -> anyhow::Result<()> {
                 println!("Storage path set to: {}", storage);
             };
 
+            Ok(())
+        }
+
+        Some(Commands::Completion { shell }) => {
+            completion::generate_completion(shell)?;
             Ok(())
         }
 
